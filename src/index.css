@@ -174,3 +174,65 @@ body,
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
 }
+
+/* Markdown 内容样式优化 */
+.markdown-content {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.markdown-content p {
+  line-height: 1.6;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  padding-left: 0.5rem;
+}
+
+.markdown-content li {
+  margin-bottom: 0.25rem;
+}
+
+.markdown-content code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+}
+
+.markdown-content pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.markdown-content a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.markdown-content blockquote {
+  border-left-width: 3px;
+}
+
+.markdown-content hr {
+  margin: 1rem 0;
+  border-top: 1px solid currentColor;
+  opacity: 0.3;
+}
+
+.markdown-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.markdown-content th,
+.markdown-content td {
+  border: 1px solid currentColor;
+  padding: 0.5rem;
+  opacity: 0.8;
+}
+
+.markdown-content th {
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.05);
+}
