@@ -19,84 +19,90 @@ Deno.serve(async (req) => {
 
     // 构建图片生成 prompt
     const imagePrompt = `Chinese New Year 2026 Year of the Horse greeting card design. 
-Main content: "${greeting}"
 
-Visual requirements:
-- Style: Traditional Chinese art meets modern illustration, warm and festive
-- Main subject: Cute, friendly cartoon horse character in joyful pose
-- Color scheme: Vibrant red (#D32F2F, #E53935) and gold (#FFB300, #FFC107) as primary colors, with warm ivory (#FFF8E1) accents
-- Background: Rich red gradient with subtle Chinese cloud patterns and golden decorative elements
-- Decorations: Red lanterns, golden coins, plum blossoms, fireworks, auspicious clouds
-- Text: The greeting text should be elegantly displayed in traditional Chinese calligraphy style with gold color
-- Border: Ornate Chinese-style golden frame with traditional patterns
-- Layout: Vertical composition (9:16 ratio), perfect for mobile phone screens
-- Mood: Joyful, prosperous, warm, celebrating Chinese New Year
-- Quality: High detail, sharp, vibrant colors, professional quality
+Main greeting text: "${greeting}"
 
-The overall design should feel festive, auspicious, and perfect for sharing with family and friends during Chinese New Year.`;
+Visual Style Requirements:
+- Traditional Chinese festive art with modern illustration style
+- Warm, joyful, auspicious atmosphere celebrating Chinese New Year
+- Main subject: Cute, friendly cartoon horse character in dynamic, celebratory pose
+- Color palette: Rich red (#D32F2F, #E53935) and bright gold (#FFB300, #FFC107) as primary colors, with ivory white (#FFF8E1) accents
+- Background: Vibrant red gradient background with subtle Chinese traditional cloud patterns (祥云) and golden decorative elements
 
-    // 调用阿里云百炼图片生成 API
-    const response = await fetch('https://dashscope.aliyuncs.com/api/v1/services/aigc/text2image/image-synthesis', {
+Decorative Elements:
+- Traditional red lanterns hanging at top corners
+- Golden coins and auspicious symbols scattered around
+- Delicate plum blossom branches
+- Subtle firework effects
+- Chinese cloud patterns (祥云)
+- Traditional border with ornate patterns
+
+Text Display:
+- The greeting text "${greeting}" should be prominently displayed in elegant Chinese calligraphy style
+- Text color: gold with red outline for contrast
+- Text positioned in the center or upper-center area
+- Clear, legible, beautiful typography
+
+Layout & Composition:
+- Vertical orientation (9:16 ratio) optimized for mobile phone display
+- Balanced composition with the horse character and greeting text as focal points
+- Professional, high-quality design suitable for sharing with family and friends
+- Border: Elegant Chinese-style decorative frame with traditional patterns
+
+Technical Requirements:
+- High resolution, sharp details, vibrant colors
+- Professional quality illustration
+- No watermarks or logos
+- Clean, polished final result
+
+The overall design should feel festive, prosperous, warm, and perfect for sharing Chinese New Year blessings with loved ones.`;
+
+    console.log('Calling Aliyun image generation API...');
+
+    // 调用阿里云百炼图片生成 API（新的同步接口）
+    const response = await fetch('https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
-        'X-DashScope-Async': 'enable',
       },
       body: JSON.stringify({
-        model: 'wanx-v1',
+        model: 'qwen-image-max',
         input: {
-          prompt: imagePrompt,
+          messages: [
+            {
+              role: 'user',
+              content: [
+                {
+                  text: imagePrompt
+                }
+              ]
+            }
+          ]
         },
         parameters: {
-          size: '768*1344', // 9:16 比例
+          size: '928*1664', // 9:16 比例（竖屏）
           n: 1,
-          style: '<auto>',
+          prompt_extend: true,
+          watermark: false,
+          negative_prompt: '低分辨率，低画质，肢体畸形，手指畸形，画面过饱和，蜡像感，人脸无细节，过度光滑，画面具有AI感。构图混乱。文字模糊，扭曲。',
         },
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('API Error:', errorText);
-      throw new Error(`API request failed: ${response.status}`);
+      console.error('API Error Response:', errorText);
+      throw new Error(`API request failed with status ${response.status}: ${errorText}`);
     }
 
     const data = await response.json();
+    console.log('API Response:', JSON.stringify(data));
     
-    // 检查是否是异步任务
-    if (data.output?.task_id) {
-      const taskId = data.output.task_id;
-      
-      // 轮询检查任务状态
-      let imageUrl = null;
-      let attempts = 0;
-      const maxAttempts = 30; // 最多等待60秒
-      
-      while (attempts < maxAttempts && !imageUrl) {
-        await new Promise(resolve => setTimeout(resolve, 2000)); // 每2秒检查一次
-        
-        const statusResponse = await fetch(`https://dashscope.aliyuncs.com/api/v1/tasks/${taskId}`, {
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-          },
-        });
-        
-        const statusData = await statusResponse.json();
-        
-        if (statusData.output?.task_status === 'SUCCEEDED') {
-          imageUrl = statusData.output?.results?.[0]?.url;
-          break;
-        } else if (statusData.output?.task_status === 'FAILED') {
-          throw new Error('Image generation failed');
-        }
-        
-        attempts++;
-      }
-      
-      if (!imageUrl) {
-        throw new Error('Image generation timeout');
-      }
+    // 检查响应格式（新的同步接口返回格式）
+    if (data.output?.choices?.[0]?.message?.content?.[0]?.image) {
+      const imageUrl = data.output.choices[0].message.content[0].image;
+      console.log('Image generated successfully:', imageUrl);
       
       return new Response(
         JSON.stringify({ imageUrl }),
@@ -109,26 +115,17 @@ The overall design should feel festive, auspicious, and perfect for sharing with
       );
     }
     
-    // 同步返回
-    const imageUrl = data.output?.results?.[0]?.url;
-    
-    if (!imageUrl) {
-      throw new Error('No image URL in response');
-    }
+    // 如果响应格式不对，打印详细信息
+    console.error('Unexpected response format:', JSON.stringify(data));
+    throw new Error('Unexpected response format from image generation API');
 
-    return new Response(
-      JSON.stringify({ imageUrl }),
-      {
-        headers: {
-          ...corsHeaders,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error details:', error);
     return new Response(
-      JSON.stringify({ error: error.message || 'Failed to generate image' }),
+      JSON.stringify({ 
+        error: error.message || 'Failed to generate image',
+        details: error.toString()
+      }),
       {
         status: 500,
         headers: {
