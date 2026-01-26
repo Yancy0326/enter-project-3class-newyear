@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { FloatingElements } from '@/components/horse-year/FloatingElements';
 import { LoadingAnimation } from '@/components/horse-year/LoadingAnimation';
@@ -9,7 +10,8 @@ import { ActionButtons } from '@/components/horse-year/ActionButtons';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 
-const Index = () => {
+const Greeting = () => {
+  const navigate = useNavigate();
   const [greeting, setGreeting] = useState<string>('');
   const [imageUrl, setImageUrl] = useState<string>('');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -75,39 +77,50 @@ const Index = () => {
 
       {/* 主要内容区域 */}
       <div className="relative z-10 container mx-auto px-4 py-8 md:py-12 min-h-screen flex flex-col">
-        {/* 标题区域 */}
+        {/* 返回按钮和标题区域 */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-8 md:mb-12"
+          className="mb-8 md:mb-12"
         >
-          <motion.div
-            className="inline-block mb-4"
-            animate={{
-              scale: [1, 1.05, 1],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
+          <Button
+            variant="ghost"
+            onClick={() => navigate('/')}
+            className="mb-4 hover:bg-accent/50"
           >
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent drop-shadow-lg">
-              马年新春贺词
-            </h1>
-          </motion.div>
-          
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-base md:text-lg text-muted-foreground flex items-center justify-center gap-2"
-          >
-            <Sparkles className="w-5 h-5 text-secondary" />
-            AI 为您创作独特的马年祝福
-            <Sparkles className="w-5 h-5 text-secondary" />
-          </motion.p>
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            返回首页
+          </Button>
+
+          <div className="text-center">
+            <motion.div
+              className="inline-block mb-4"
+              animate={{
+                scale: [1, 1.05, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            >
+              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent drop-shadow-lg">
+                马年新春贺词
+              </h1>
+            </motion.div>
+            
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="text-base md:text-lg text-muted-foreground flex items-center justify-center gap-2"
+            >
+              <Sparkles className="w-5 h-5 text-secondary" />
+              AI 为您创作独特的马年祝福
+              <Sparkles className="w-5 h-5 text-secondary" />
+            </motion.p>
+          </div>
         </motion.div>
 
         {/* 内容区域 */}
@@ -187,4 +200,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Greeting;

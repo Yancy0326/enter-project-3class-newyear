@@ -1,11 +1,23 @@
-import Index from "./pages/Index";
+import Home from "./pages/Home";
+import Greeting from "./pages/greeting";
+import Fortune from "./pages/fortune";
 import NotFound from "./pages/NotFound";
 
 export const routers = [
     {
       path: "/",
       name: 'home',
-      element: <Index />,
+      element: <Home />,
+    },
+    {
+      path: "/greeting",
+      name: 'greeting',
+      element: <Greeting />,
+    },
+    {
+      path: "/fortune",
+      name: 'fortune',
+      element: <Fortune />,
     },
     /* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */
     {
