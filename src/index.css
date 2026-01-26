@@ -5,81 +5,99 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 45 100% 97%;
+    --foreground: 0 84% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 84% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 84% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* 中国红主色调 */
+    --primary: 0 65% 51%;
+    --primary-foreground: 45 100% 97%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* 金色辅助色 */
+    --secondary: 45 100% 51%;
+    --secondary-foreground: 0 84% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 45 40% 93%;
+    --muted-foreground: 0 16% 47%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* 强调色 - 深红 */
+    --accent: 0 70% 45%;
+    --accent-foreground: 45 100% 97%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 45 100% 97%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 45 50% 85%;
+    --input: 45 50% 85%;
+    --ring: 0 65% 51%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
+
+    /* 马年主题渐变 */
+    --gradient-primary: linear-gradient(135deg, hsl(0, 65%, 51%) 0%, hsl(0, 70%, 45%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(45, 100%, 51%) 0%, hsl(38, 90%, 60%) 100%);
+    --gradient-festive: linear-gradient(180deg, hsl(0, 70%, 45%) 0%, hsl(0, 65%, 51%) 50%, hsl(15, 85%, 55%) 100%);
+    
+    /* 阴影效果 */
+    --shadow-glow: 0 0 30px hsl(0 65% 51% / 0.3);
+    --shadow-glow-gold: 0 0 30px hsl(45 100% 51% / 0.4);
+    --shadow-card: 0 10px 40px hsl(0 65% 51% / 0.15);
+    
+    /* 动画时长 */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 0 20% 8%;
+    --foreground: 45 100% 97%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 25% 12%;
+    --card-foreground: 45 100% 97%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 25% 12%;
+    --popover-foreground: 45 100% 97%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 0 65% 51%;
+    --primary-foreground: 45 100% 97%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 45 100% 51%;
+    --secondary-foreground: 0 84% 15%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 20% 20%;
+    --muted-foreground: 45 30% 70%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 0 70% 45%;
+    --accent-foreground: 45 100% 97%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62% 31%;
+    --destructive-foreground: 45 100% 97%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 0 20% 20%;
+    --input: 0 20% 20%;
+    --ring: 0 65% 51%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(0, 65%, 51%) 0%, hsl(0, 70%, 45%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(45, 100%, 51%) 0%, hsl(38, 90%, 60%) 100%);
+    --gradient-festive: linear-gradient(180deg, hsl(0, 70%, 35%) 0%, hsl(0, 65%, 41%) 50%, hsl(15, 85%, 45%) 100%);
+
+    --shadow-glow: 0 0 30px hsl(0 65% 51% / 0.4);
+    --shadow-glow-gold: 0 0 30px hsl(45 100% 51% / 0.5);
+    --shadow-card: 0 10px 40px hsl(0 65% 51% / 0.25);
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -106,4 +124,53 @@ body,
 #root {
   width: 100%;
   height: 100%;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes swing {
+  0%, 100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(var(--primary) / 0.6);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-swing {
+  animation: swing 2s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }
