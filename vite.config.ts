@@ -23,6 +23,10 @@ export default defineConfig(({ mode }) => {
     },
     base: '/',
     build: {
+    // 将块大小警告限制提高到 1600KB
+    chunkSizeWarningLimit: 1600,
+    },
+    build: {
       outDir: 'dist',
     }
   };
