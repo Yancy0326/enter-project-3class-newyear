@@ -23,6 +23,14 @@ const Home = () => {
       gradient: 'from-secondary via-[hsl(45,100%,51%)] to-[hsl(38,90%,60%)]',
       path: '/fortune',
     },
+    {
+      id: 'travel',
+      icon: '✈️',
+      title: '旅行规划',
+      description: '新春出游计划助手',
+      gradient: 'from-accent via-primary to-[hsl(15,85%,55%)]',
+      path: '/travel',
+    },
   ];
 
   return (
@@ -83,7 +91,7 @@ const Home = () => {
         </motion.div>
 
         {/* 选项卡片 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl px-4">
           {options.map((option, index) => (
             <motion.div
               key={option.id}

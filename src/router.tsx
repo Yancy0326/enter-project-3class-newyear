@@ -1,6 +1,7 @@
 import Home from "./pages/Home";
 import Greeting from "./pages/greeting";
 import Fortune from "./pages/fortune";
+import Travel from "./pages/travel";
 import NotFound from "./pages/NotFound";
 
 export const routers = [
@@ -18,6 +19,11 @@ export const routers = [
       path: "/fortune",
       name: 'fortune',
       element: <Fortune />,
+    },
+    {
+      path: "/travel",
+      name: 'travel',
+      element: <Travel />,
     },
     /* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */
     {
