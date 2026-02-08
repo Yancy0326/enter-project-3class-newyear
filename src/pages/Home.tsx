@@ -49,7 +49,7 @@ const Home = () => {
           repeat: Infinity,
           ease: 'easeInOut'
         }}>
-            <h1 className="md:text-7xl bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent drop-shadow-2xl Pro'] York'] font-['Poppins'] text-[57px] font-[800]">桃子祝你2026马年大吉</h1>
+            <h1 className="md:text-7xl bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent drop-shadow-2xl Pro'] York'] font-['Poppins'] font-[800] text-[51px]">桃子祝你2026马年大吉</h1>
           </motion.div>
           
           <motion.p initial={{
