@@ -51,7 +51,7 @@ export const ChatInput = ({ onSend, disabled = false }: ChatInputProps) => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="问问运势..."
+            placeholder="你的新春计划..."
             disabled={disabled}
             rows={1}
             className="w-full px-4 py-3 pr-12 rounded-2xl border-2 border-secondary/30 bg-background/50 focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/20 resize-none transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
